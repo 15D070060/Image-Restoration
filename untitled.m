@@ -299,7 +299,7 @@ imkernelfft = fftshift(fft2(padimkernel));
 
 r= rb+rk-1 ;
 c= cb+ck-1 ;
-s = (300* get(hObject,'Value'));
+s = (400* get(hObject,'Value'));
 
 trimkernelfft = ones(r,c);
 trimkernelfft( ((r-s)/2)+1 : (r+s)/2 , ((c-s)/2)+1 : (c+s)/2 ) = imkernelfft( ((r-s)/2)+1 : (r+s)/2 , ((c-s)/2)+1 : (c+s)/2 ) ;
