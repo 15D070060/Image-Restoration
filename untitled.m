@@ -1,3 +1,7 @@
+%The entire code except, wherever mentioned, is written by me.
+
+
+
 function varargout = untitled(varargin)
 % UNTITLED MATLAB code for untitled.fig
 %      UNTITLED, by itself, creates a new UNTITLED or raises the existing
@@ -155,24 +159,19 @@ gimblurfft = fftshift(fft2(gpadimblur));
 bimblurfft = fftshift(fft2(bpadimblur));
 imkernelfft = fftshift(fft2(padimkernel));
 
-
-
 rimdeblurfft = rimblurfft .* imkernelfft ;
 gimdeblurfft = gimblurfft .* imkernelfft ;
 bimdeblurfft = bimblurfft .* imkernelfft ;
 
-
 rimdeblur = ifft2(ifftshift(rimdeblurfft));
 gimdeblur = ifft2(ifftshift(gimdeblurfft));
 bimdeblur = ifft2(ifftshift(bimdeblurfft));
-
 
 runpadimdeblur = zeros(rb,cb);
 runpadimdeblur = rimdeblur(1:rb,1:cb);
 
 gunpadimdeblur = zeros(rb,cb);
 gunpadimdeblur = gimdeblur(1:rb,1:cb);
-
 
 bunpadimdeblur = zeros(rb,cb);
 bunpadimdeblur = bimdeblur(1:rb,1:cb);
@@ -230,18 +229,15 @@ rimdeblurfft = rimblurfft ./ imkernelfft ;
 gimdeblurfft = gimblurfft ./ imkernelfft ;
 bimdeblurfft = bimblurfft ./ imkernelfft ;
 
-
 rimdeblur = ifft2(ifftshift(rimdeblurfft));
 gimdeblur = ifft2(ifftshift(gimdeblurfft));
 bimdeblur = ifft2(ifftshift(bimdeblurfft));
-
 
 runpadimdeblur = zeros(rb,cb);
 runpadimdeblur = rimdeblur(1:rb,1:cb);
 
 gunpadimdeblur = zeros(rb,cb);
 gunpadimdeblur = gimdeblur(1:rb,1:cb);
-
 
 bunpadimdeblur = zeros(rb,cb);
 bunpadimdeblur = bimdeblur(1:rb,1:cb);
@@ -254,7 +250,6 @@ imdeblur(:,:,3) = bunpadimdeblur;
 
 imdeblur=real(imdeblur);
 imdeblur=abs((255/max(imdeblur(:))).*imdeblur)*1.25;
-
 
 axes(handles.axes2);
 imshow(uint8(imdeblur));
@@ -295,8 +290,6 @@ gimblurfft = fftshift(fft2(gpadimblur));
 bimblurfft = fftshift(fft2(bpadimblur));
 imkernelfft = fftshift(fft2(padimkernel));
 
-
-
 r= rb+rk-1 ;
 c= cb+ck-1 ;
 s = (400* get(hObject,'Value'));
@@ -307,23 +300,19 @@ trimkernelfft( ((r-s)/2)+1 : (r+s)/2 , ((c-s)/2)+1 : (c+s)/2 ) = imkernelfft( ((
 k= 1500;
 trimkernelfft(abs(trimkernelfft)<k) = k;
 
-
 rimdeblurfft = rimblurfft ./ trimkernelfft ;
 gimdeblurfft = gimblurfft ./ trimkernelfft ;
 bimdeblurfft = bimblurfft ./ trimkernelfft ;
 
-
 rimdeblur = ifft2(ifftshift(rimdeblurfft));
 gimdeblur = ifft2(ifftshift(gimdeblurfft));
 bimdeblur = ifft2(ifftshift(bimdeblurfft));
-
 
 runpadimdeblur = zeros(rb,cb);
 runpadimdeblur = rimdeblur(1:rb,1:cb);
 
 gunpadimdeblur = zeros(rb,cb);
 gunpadimdeblur = gimdeblur(1:rb,1:cb);
-
 
 bunpadimdeblur = zeros(rb,cb);
 bunpadimdeblur = bimdeblur(1:rb,1:cb);
@@ -337,10 +326,10 @@ imdeblur(:,:,3) = bunpadimdeblur;
 imdeblur=real(imdeblur);
 imdeblur=abs((255/max(imdeblur(:))).*imdeblur)*1.05;
 
-
 axes(handles.axes2);
 imshow(uint8(imdeblur));
 
+%code for psnr calculation taken from the internet
 img=imdeblur;
 img=double(img(:));
 ima=max(img(:));
@@ -389,6 +378,7 @@ rimblur = imblur(:,:,1);
 gimblur = imblur(:,:,2);
 bimblur = imblur(:,:,3);
 
+%code for k calculation taken from the internet
 img=imblur;
 img=double(img(:));
 ima=max(img(:));
@@ -418,17 +408,13 @@ imkernelfft = fftshift(fft2(padimkernel));
 l= 1500;
 imkernelfft(abs(imkernelfft)<l) = l;
 
-
-
 rimdeblurfft = rimblurfft .* (conj(imkernelfft)/ (norm(imkernelfft)^2 + k ));
 gimdeblurfft = gimblurfft .* (conj(imkernelfft)/ (norm(imkernelfft)^2 + k ));
 bimdeblurfft = bimblurfft .* (conj(imkernelfft)/ (norm(imkernelfft)^2 + k ));
 
-
 rimdeblur = ifft2(ifftshift(rimdeblurfft));
 gimdeblur = ifft2(ifftshift(gimdeblurfft));
 bimdeblur = ifft2(ifftshift(bimdeblurfft));
-
 
 runpadimdeblur = zeros(rb,cb);
 runpadimdeblur = rimdeblur(1:rb,1:cb);
@@ -448,10 +434,10 @@ imdeblur(:,:,3) = bunpadimdeblur;
 imdeblur=real(imdeblur);
 imdeblur=abs((255/max(imdeblur(:))).*imdeblur);
 
-
 axes(handles.axes2);
 imshow(uint8(imdeblur));
 
+%code for psnr calculation taken from the internet
 img=imdeblur;
 img=double(img(:));
 ima=max(img(:));
@@ -477,7 +463,7 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 
-set(hObject,'Min',-1);
+set(hObject,'Min',0);
 set(hObject,'Max',1);
 %-------------------------------------------------------DEBLUR USING CLS FILTER--------------------------------------
 
@@ -525,18 +511,15 @@ rimdeblurfft = rimblurfft .* (conj(imkernelfft)/ (norm(imkernelfft) + g*norm(C))
 gimdeblurfft = gimblurfft .* (conj(imkernelfft)/ (norm(imkernelfft) + g*norm(C)));
 bimdeblurfft = bimblurfft .* (conj(imkernelfft)/ (norm(imkernelfft) + g*norm(C)));
 
-
 rimdeblur = ifft2(ifftshift(rimdeblurfft));
 gimdeblur = ifft2(ifftshift(gimdeblurfft));
 bimdeblur = ifft2(ifftshift(bimdeblurfft));
-
 
 runpadimdeblur = zeros(rb,cb);
 runpadimdeblur = rimdeblur(1:rb,1:cb);
 
 gunpadimdeblur = zeros(rb,cb);
 gunpadimdeblur = gimdeblur(1:rb,1:cb);
-
 
 bunpadimdeblur = zeros(rb,cb);
 bunpadimdeblur = bimdeblur(1:rb,1:cb);
@@ -554,6 +537,7 @@ imdeblur=abs((255/max(imdeblur(:))).*imdeblur)*1.15;
 axes(handles.axes2);
 imshow(uint8(imdeblur));
 
+%code for psnr calculation taken from the internet
 img=imdeblur;
 img=double(img(:));
 ima=max(img(:));
@@ -579,7 +563,7 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 
-set(hObject,'Min',-1);
+set(hObject,'Min',0);
 set(hObject,'Max',1);
 
 
