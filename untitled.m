@@ -395,7 +395,7 @@ ima=max(img(:));
 imi=min(img(:));
 mse=std(img(:));
 k = 1/(20*log10((ima-imi)./mse));
-k1= 10*k*get(hObject,'Value');
+k= (10^8)*k*get(hObject,'Value');
 
 [rb,cb] = size(rimblur);
 [rk,ck] = size(imkernel);
@@ -498,7 +498,7 @@ gimblur = imblur(:,:,2);
 bimblur = imblur(:,:,3);
 
 C = [0,-1,0 ; -1,4,-1 ; 0,-1,0];
-g= 2*10*get(hObject,'Value');
+g= 2*(10^8)*get(hObject,'Value');
 
 [rb,cb] = size(rimblur);
 [rk,ck] = size(imkernel);
